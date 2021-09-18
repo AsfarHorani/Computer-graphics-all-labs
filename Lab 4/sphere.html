@@ -14,9 +14,6 @@
             
 
 
-
-
-
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100);
 camera.position.set(0, 5, 15);
@@ -26,16 +23,20 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-
+var grid = new THREE.GridHelper(30, 100, 0xffffff, 0x404040);
+grid.rotation.x = Math.PI * 0.5;
+scene.add(grid);
 const getShpereCoordinateList=()=>{
+    
     let coordinates=[]
      //eq of circle x(t) = Rcos(t) and y(t)= Rsin(t) while R is radiius
     //let R=2
-    const R =3;
-    for(var i= 0  ; i<=Math.PI*2; i+=Math.PI/8)
+    const R =4;
+    for(var j= 0  ; j<=Math.PI; j+=Math.PI/16)
+    
     { 
       
-        for(var j= 0  ; j<=Math.PI; j+=Math.PI/8)
+        for(var i= 0  ; i<=Math.PI*2; i+=Math.PI/16)
         {
       
             const x = R * Math.sin(j)*Math.cos(i)
@@ -43,27 +44,48 @@ const getShpereCoordinateList=()=>{
             const z = R * Math.cos(j)
             console.log(x,y,z)
             coordinates.push(new THREE.Vector3(x, y, z))
+ 
         }
 
 
 
-console.log(coordinates)
+ }
+
+  for(var i= 0  ; i<=Math.PI*2; i+=Math.PI/16)
+    { 
+        for(var j= 0  ; j<=Math.PI; j+=Math.PI/16)
+        {
+      
+            const x = R * Math.sin(j)*Math.cos(i)
+            const y = R * Math.sin(j)*Math.sin(i)
+            const z = R * Math.cos(j)
+            console.log(x,y,z)
+            coordinates.push(new THREE.Vector3(x, y, z))
+ 
+        }
+
+
+
+
 
  }
-       
+ console.log(coordinates)
     return coordinates
  
     
 }
+
 var geom = new THREE.BufferGeometry().setFromPoints(getShpereCoordinateList());
 var matPoints = new THREE.PointsMaterial({size: 0.2, color: "pink"});
 var points = new THREE.Points(geom, matPoints);
 scene.add(points);
 
-// var geomShape = new THREE.ShapeBufferGeometry(new THREE.Shape(getShpereCoordinateList()));
-// var matShape = new THREE.MeshBasicMaterial({color:"blue"});
-// var shape = new THREE.Mesh(geomShape, matShape);
-// scene.add(shape);
+// lines
+var matLines = new THREE.LineBasicMaterial({color: "white"});
+var lines = new THREE.LineLoop(geom, matLines);
+scene.add(lines);
+lines.position.y =5;
+points.position.y =5;
 
 
 const animate = function () {
@@ -71,8 +93,8 @@ const animate = function () {
 
                 points.rotation.x+=0.01
              
-                points.rotation.y+=0.01
-              
+                lines.rotation.x+=0.01
+          
                
 				renderer.render( scene, camera );
 			};
