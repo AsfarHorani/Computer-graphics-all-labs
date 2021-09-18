@@ -40,7 +40,7 @@ const getShpereCoordinateList=()=>{
       
             const x = R * Math.sin(j)*Math.cos(i)
             const y = R * Math.sin(j)*Math.sin(i)
-            const z = R * Math.cos(i)
+            const z = R * Math.cos(j)
             console.log(x,y,z)
             coordinates.push(new THREE.Vector3(x, y, z))
         }
@@ -60,13 +60,19 @@ var matPoints = new THREE.PointsMaterial({size: 0.2, color: "pink"});
 var points = new THREE.Points(geom, matPoints);
 scene.add(points);
 
-
+// var geomShape = new THREE.ShapeBufferGeometry(new THREE.Shape(getShpereCoordinateList()));
+// var matShape = new THREE.MeshBasicMaterial({color:"blue"});
+// var shape = new THREE.Mesh(geomShape, matShape);
+// scene.add(shape);
 
 
 const animate = function () {
 				requestAnimationFrame( animate );
 
+                points.rotation.x+=0.01
+             
                 points.rotation.y+=0.01
+              
                
 				renderer.render( scene, camera );
 			};
