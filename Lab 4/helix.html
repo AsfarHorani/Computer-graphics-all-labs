@@ -16,7 +16,7 @@
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100);
-camera.position.set(0, 5, 15);
+camera.position.set(0, 5, 25);
 camera.lookAt(0, 5, 5);
 camera.up.set(0,0,1);
 var renderer = new THREE.WebGLRenderer();
@@ -24,55 +24,26 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 
-const getShpereCoordinateList=()=>{
-    
+const getCircleCoordinateList=()=>{
     let coordinates=[]
      //eq of circle x(t) = Rcos(t) and y(t)= Rsin(t) while R is radiius
     //let R=2
-    const R =4;
-    for(var j= 0  ; j<=Math.PI; j+=Math.PI/16)
-    
+    const R =2
+    const c=0.5
+    for(var i= 0  ; i<Math.PI*10; i+=Math.PI/8)
     { 
-      
-        for(var i= 0  ; i<=Math.PI*2; i+=Math.PI/16)
-        {
-      
-            const x = R * Math.sin(j)*Math.cos(i)
-            const y = R * Math.sin(j)*Math.sin(i)
-            const z = R * Math.cos(j)
-            console.log(x,y,z)
-            coordinates.push(new THREE.Vector3(x, y, z))
-
- 
-        }
-
-
-
- }
-
-  for(var i= 0  ; i<=Math.PI*2; i+=Math.PI/16)
-    { 
-        for(var j= 0  ; j<=Math.PI; j+=Math.PI/16)
-        {
-      
-            const x = R * Math.sin(j)*Math.cos(i)
-            const y = R * Math.sin(j)*Math.sin(i)
-            const z = R * Math.cos(j)
-            console.log(x,y,z)
-            coordinates.push(new THREE.Vector3(x, y, z))
- 
-        }
-
-
-}
- coordinates.push(new THREE.Vector3(R * Math.sin(0)*Math.cos(0), R * Math.sin(0)*Math.sin(0), R * Math.cos(0)))
- console.log(coordinates)
+        const x = R * Math.cos(i)
+        const y = R * Math.sin(i)
+        const z = c*i
+        coordinates.push(new THREE.Vector3(x, y, z))
+    }
     return coordinates
- 
+    console.log(coordinates)
     
 }
 
-var geom = new THREE.BufferGeometry().setFromPoints(getShpereCoordinateList());
+
+var geom = new THREE.BufferGeometry().setFromPoints(getCircleCoordinateList());
 var matPoints = new THREE.PointsMaterial({size: 0.2, color: "pink"});
 var points = new THREE.Points(geom, matPoints);
 scene.add(points);
@@ -91,6 +62,10 @@ const animate = function () {
                 points.rotation.x+=0.01
              
                 lines.rotation.x+=0.01
+
+                points.rotation.y+=0.01
+             
+             lines.rotation.y+=0.01
                 
                 renderer.render( scene, camera );
 			};
