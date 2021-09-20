@@ -1,0 +1,71 @@
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+            canvas{width: 100%; height: 100%;}
+		</style>
+	</head>
+	<body>
+		<script src="../js/three.js"></script>
+   <script>
+ 
+         const createShpere=(x,y,z)=>{
+    const sgeometry = new THREE.SphereGeometry( 4)
+     const smaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+     const sphere = new THREE.Mesh( sgeometry, smaterial );
+    sphere.position.y=y
+      sphere.position.x=x;
+      sphere.position.z=z;
+      scene.add( sphere );
+      return sphere
+
+ }
+
+            const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+         const renderer = new THREE.WebGLRenderer();
+         renderer.setSize( window.innerWidth, window.innerHeight );
+      document.body.appendChild( renderer.domElement );
+         const geometry = new THREE.BoxGeometry(15,15,15);
+			const material = new THREE.MeshBasicMaterial( { color: "#009A17"} );
+			const base= new THREE.Mesh( geometry, material );
+  
+            
+            scene.add( base );
+
+     
+const s1 = createShpere(8,8,8);
+const s2 = createShpere(8,8,-8);
+const s3 = createShpere(-8,8,8);
+const s4 = createShpere(8,-8,8);
+const s5 = createShpere(-8,-8,8);
+const s6 = createShpere(-8,8,-8);
+const s7 = createShpere(8,-8,-8);
+const s8 = createShpere(-8,-8,-8);
+
+
+			 camera.position.z = 50;
+       		
+       var angle = 0;
+        var radius = 50
+			const animate = function () {
+				requestAnimationFrame( animate );
+               
+ 
+                camera.position.x = radius * Math.cos( angle ); 
+                camera.position.y =radius * Math.sin( angle ); 
+                angle += 0.01;
+				renderer.render( scene, camera );
+			};
+
+
+			animate();
+           
+	
+		</script>
+	</body>
+</html>

@@ -61,8 +61,8 @@ const getShpereCoordinateList=()=>{
 
 
 }
- coordinates.push(new THREE.Vector3(R * Math.sin(0)*Math.cos(0), R * Math.sin(0)*Math.sin(0), R * Math.cos(0)))
  console.log(coordinates)
+ coordinates.push(new THREE.Vector3(0, 0, -1))
     return coordinates
  
     
@@ -77,8 +77,7 @@ scene.add(points);
 var matLines = new THREE.LineBasicMaterial({color: "white"});
 var lines = new THREE.LineLoop(geom, matLines);
 scene.add(lines);
-lines.position.y =5;
-points.position.y =5;
+
 
 
     let setgeometry = new THREE.BufferGeometry().setFromPoints(set);
