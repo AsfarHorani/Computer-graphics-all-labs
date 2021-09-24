@@ -22,76 +22,67 @@ camera.up.set(0,0,1);
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+let circles=[]
+    let vertices=[]
 
 const getShpereCoordinateList=()=>{
-    
-    let coordinates=[]
-     //eq of circle x(t) = Rcos(t) and y(t)= Rsin(t) while R is radiius
-    //let R=2
+ 
     const R =4;
     for(var j= 0  ; j<=Math.PI; j+=Math.PI/16)
     
     { 
       
+    let coordinates=[]
         for(var i= 0  ; i<=Math.PI*2; i+=Math.PI/16)
         {
       
             const x = R * Math.sin(j)*Math.cos(i)
             const y = R * Math.sin(j)*Math.sin(i)
             const z = R * Math.cos(j)
-            console.log(x,y,z)
+       
             coordinates.push(new THREE.Vector3(x, y, z))
 
  
         }
-
-
-
- }
-
-  for(var i= 0  ; i<=Math.PI*2; i+=Math.PI/16)
-    { 
-        for(var j= 0  ; j<=Math.PI; j+=Math.PI/16)
-        {
-      
-            const x = R * Math.sin(j)*Math.cos(i)
-            const y = R * Math.sin(j)*Math.sin(i)
-            const z = R * Math.cos(j)
-            console.log(x,y,z)
-            coordinates.push(new THREE.Vector3(x, y, z))
- 
-        }
-
-
-}
- coordinates.push(new THREE.Vector3(R * Math.sin(0)*Math.cos(0), R * Math.sin(0)*Math.sin(0), R * Math.cos(0)))
- console.log(coordinates)
-
-    return coordinates
- 
-    
-}
-
-var geom = new THREE.BufferGeometry().setFromPoints(getShpereCoordinateList());
+        var geom = new THREE.BufferGeometry().setFromPoints(coordinates);
 var matPoints = new THREE.PointsMaterial({size: 0.2, color: "pink"});
 var points = new THREE.Points(geom, matPoints);
+vertices.push(points)
 scene.add(points);
 
 // lines
 var matLines = new THREE.LineBasicMaterial({color: "white"});
 var lines = new THREE.LineLoop(geom, matLines);
+circles.push(lines)
 scene.add(lines);
 lines.position.y =5;
 points.position.y =5;
+renderer.render( scene, camera );
 
+
+ }
+
+    
+ 
+    
+}
+
+
+getShpereCoordinateList()
 
 const animate = function () {
 				requestAnimationFrame( animate );
-
-                points.rotation.x+=0.01
+               circles.forEach(cir=>{
+                cir.rotation.x+=0.01
+                cir.rotation.y+=0.01
              
-                lines.rotation.x+=0.01
+             
+               })
+               vertices.forEach(ver=>{
+                ver.rotation.y+=0.01
+                ver.rotation.x+=0.01
+               })
+             
                 
                 renderer.render( scene, camera );
 			};
@@ -101,7 +92,8 @@ const animate = function () {
           
 
 			animate();
-	
+
+
 		</script>
 	</body>
 </html>

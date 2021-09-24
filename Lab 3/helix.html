@@ -35,10 +35,11 @@ const getCircleCoordinateList=()=>{
         const x = R * Math.cos(i)
         const y = R * Math.sin(i)
         const z = c*i
+    
         coordinates.push(new THREE.Vector3(x, y, z))
     }
     return coordinates
-    console.log(coordinates)
+  
     
 }
 
@@ -50,7 +51,7 @@ scene.add(points);
 
 // lines
 var matLines = new THREE.LineBasicMaterial({color: "white"});
-var lines = new THREE.LineLoop(geom, matLines);
+var lines = new THREE.Line(geom, matLines);
 scene.add(lines);
 lines.position.y =5;
 points.position.y =5;
