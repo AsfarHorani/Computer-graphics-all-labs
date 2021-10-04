@@ -14,21 +14,26 @@
             
 
 const getLineCoordinateList=()=>{
-    let coordinates=[]
-     //eq of line: x(t)= Ax + (Bx-Ax)t  y(t)=Ay+(By-Ay) 
-    //let A=(1,0) and B = (2,1)
-    const A =[2,0];
-    const B= [2,1];
-    for(var i=0; i<100; i++)
-    { 
-        let x,y
-        const t = i/10
-        x = A[0] + (B[0]-A[0])*t
-        y = A[1] + (B[1]-A[1])*t
-        coordinates.push(new THREE.Vector3(x, y, 0))
-    }
-    console.log(coordinates)
-    return coordinates
+    // let coordinates=[]
+    //  //eq of line: x(t)= Ax + (Bx-Ax)t  y(t)=Ay+(By-Ay) 
+    // //let A=(1,0) and B = (2,1)
+    // const A =[2,0];
+    // const B= [2,1];
+    // for(var i=0; i<100; i++)
+    // { 
+    //     let x,y
+    //     const t = i/10
+    //     x = A[0] + (B[0]-A[0])*t
+    //     y = A[1] + (B[1]-A[1])*t
+    //     coordinates.push(new THREE.Vector3(x, y, 0))
+    // }
+    // console.log(coordinates)
+    const points = [];
+points.push( new THREE.Vector3( - 10, 0, 0 ) );
+points.push( new THREE.Vector3( 0, 10, 0 ) );
+points.push( new THREE.Vector3( 10, 0, 0 ) );
+return points
+    //return coordinates
 }
 const getCircleCoordinateList=()=>{
     let coordinates=[]
@@ -39,7 +44,7 @@ const getCircleCoordinateList=()=>{
     { 
         const x = R * Math.cos(i)
         const y = R * Math.sin(i)
-        x=
+        
         coordinates.push(new THREE.Vector3(x, y, 0))
     }
     return coordinates
@@ -81,7 +86,7 @@ scene.add(grid);
 
 
 // shape
-var geomShape = new THREE.ShapeBufferGeometry(new THREE.Shape(getCircleCoordinateList()));
+var geomShape = new THREE.ShapeBufferGeometry(new THREE.Shape(getLineCoordinateList()));
 var matShape = new THREE.MeshBasicMaterial({color:"blue"});
 var shape = new THREE.Mesh(geomShape, matShape);
 scene.add(shape);
@@ -91,7 +96,7 @@ scene.add(shape);
 //BufferGeometry: A representation of mesh, line, or point geometry. Includes vertex positions, face indices, normals, colors, 
 //UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU
 
-var geom = new THREE.BufferGeometry().setFromPoints(getCircleCoordinateList());
+var geom = new THREE.BufferGeometry().setFromPoints(getLineCoordinateList());
 var matPoints = new THREE.PointsMaterial({size: 0.3, color: "pink"});
 var points = new THREE.Points(geom, matPoints);
 scene.add(points);
@@ -99,7 +104,7 @@ scene.add(points);
 
 // lines
 var matLines = new THREE.LineBasicMaterial({color: "white"});
-var lines = new THREE.LineLoop(geom, matLines);
+var lines = new THREE.Line(geom, matLines);
 scene.add(lines);
 
 
