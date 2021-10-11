@@ -88,9 +88,8 @@ points.position.y =5;
 const animate = function () {
 				requestAnimationFrame( animate );
 
-                points.rotation.x+=0.01
-             
-                lines.rotation.x+=0.01
+                points.rotation.z+=0.01
+                lines.rotation.z+=0.01
                 
                 renderer.render( scene, camera );
 			};
