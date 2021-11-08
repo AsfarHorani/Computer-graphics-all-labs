@@ -86,6 +86,7 @@ scene.add(grid);
 
 
 // shape
+console.log(getLineCoordinateList())
 var geomShape = new THREE.ShapeBufferGeometry(new THREE.Shape(getLineCoordinateList()));
 var matShape = new THREE.MeshBasicMaterial({color:"blue"});
 var shape = new THREE.Mesh(geomShape, matShape);
