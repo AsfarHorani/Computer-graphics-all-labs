@@ -1,0 +1,50 @@
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+            canvas{width: 100%; height: 100%;}
+		</style>
+	</head>
+	<body>
+		<script src="./js/three.js"></script>
+    <script src="./frac.js"></script>
+    <script>
+            
+
+
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 100);
+      camera.position.set(0, 5, 15);
+      camera.lookAt(0, 5, 5);
+      camera.up.set(0,0,1);
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      
+      const f = new Fractal();
+      f.frac({x:0,y:0},
+      {x:5,y:5},10)
+      console.log(f.points)
+      
+      
+      const animate = function () {
+              requestAnimationFrame( animate );
+      
+                      points.rotation.z+=0.01
+                      lines.rotation.z+=0.01
+                      
+                      renderer.render( scene, camera );
+            };
+      
+      
+      
+                
+      
+            animate();
+        
+          </script>	
+	</body>
+</html>
